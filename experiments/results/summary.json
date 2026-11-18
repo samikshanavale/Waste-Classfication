@@ -1,0 +1,340 @@
+{
+  "dataset": {
+    "name": "TrashNet (resized)",
+    "classes": [
+      "cardboard",
+      "glass",
+      "metal",
+      "paper",
+      "plastic",
+      "trash"
+    ],
+    "images": 2527,
+    "split": "70/15/15 stratified, seed 42",
+    "robustness_set": "RealWaste (UCI, 4752 images, 9 classes)"
+  },
+  "experiments": [
+    {
+      "id": "E1",
+      "name": "Custom CNN (baseline)",
+      "val_accuracy": 0.3641,
+      "val_f1_macro": 0.2391,
+      "params": 391398,
+      "size_mb": 4.78,
+      "latency_ms": 4.423,
+      "model_path": "experiments\\models\\E1.keras"
+    },
+    {
+      "id": "E2",
+      "name": "Custom CNN + augmentation",
+      "val_accuracy": 0.2348,
+      "val_f1_macro": 0.0634,
+      "params": 391398,
+      "size_mb": 4.79,
+      "latency_ms": 4.474,
+      "model_path": "experiments\\models\\E2.keras"
+    },
+    {
+      "id": "E3",
+      "name": "MobileNetV2 transfer (frozen)",
+      "val_accuracy": 0.8206,
+      "val_f1_macro": 0.7709,
+      "params": 2265670,
+      "size_mb": 9.72,
+      "latency_ms": 5.23,
+      "model_path": "experiments\\models\\E3.keras"
+    },
+    {
+      "id": "E4",
+      "name": "MobileNetV2 transfer + augmentation",
+      "val_accuracy": 0.6174,
+      "val_f1_macro": 0.5581,
+      "params": 2265670,
+      "size_mb": 9.74,
+      "latency_ms": 5.272,
+      "model_path": "experiments\\models\\E4.keras"
+    },
+    {
+      "id": "E5",
+      "name": "MobileNetV2 fine-tuned (last block)",
+      "val_accuracy": 0.6359,
+      "val_f1_macro": 0.5561,
+      "params": 2265670,
+      "size_mb": 21.82,
+      "latency_ms": 5.572,
+      "model_path": "experiments\\models\\E5.keras"
+    }
+  ],
+  "selected_model": {
+    "id": "E3",
+    "name": "MobileNetV2 transfer (frozen)",
+    "checkpoint_name": "mobilenetv2_frozen",
+    "selection_criterion": "validation accuracy"
+  },
+  "temperature": 0.85,
+  "test": {
+    "raw_softmax": {
+      "accuracy": 0.8263157894736842,
+      "precision_macro": 0.8434362680056843,
+      "recall_macro": 0.7995799992955986,
+      "f1_macro": 0.8141995428139227,
+      "precision_weighted": 0.8324371564393248,
+      "recall_weighted": 0.8263157894736842,
+      "f1_weighted": 0.8257717000266599
+    },
+    "temperature_scaled": {
+      "accuracy": 0.8263157894736842,
+      "precision_macro": 0.8434362680056843,
+      "recall_macro": 0.7995799992955986,
+      "f1_macro": 0.8141995428139227,
+      "precision_weighted": 0.8324371564393248,
+      "recall_weighted": 0.8263157894736842,
+      "f1_weighted": 0.8257717000266599
+    },
+    "ece_before": 0.059,
+    "ece_after": 0.0419,
+    "per_class": {
+      "cardboard": {
+        "precision": 0.9492,
+        "recall": 0.9333,
+        "f1-score": 0.9412,
+        "support": 60.0
+      },
+      "glass": {
+        "precision": 0.7558,
+        "recall": 0.8553,
+        "f1-score": 0.8025,
+        "support": 76.0
+      },
+      "metal": {
+        "precision": 0.7246,
+        "recall": 0.8065,
+        "f1-score": 0.7634,
+        "support": 62.0
+      },
+      "paper": {
+        "precision": 0.8667,
+        "recall": 0.8764,
+        "f1-score": 0.8715,
+        "support": 89.0
+      },
+      "plastic": {
+        "precision": 0.8413,
+        "recall": 0.726,
+        "f1-score": 0.7794,
+        "support": 73.0
+      },
+      "trash": {
+        "precision": 0.9231,
+        "recall": 0.6,
+        "f1-score": 0.7273,
+        "support": 20.0
+      }
+    },
+    "top_confusions": [
+      [
+        "plastic",
+        "glass",
+        11
+      ],
+      [
+        "glass",
+        "metal",
+        7
+      ],
+      [
+        "metal",
+        "glass",
+        7
+      ]
+    ],
+    "abstention": {
+      "curve": [
+        {
+          "threshold": 0.0,
+          "coverage": 1.0,
+          "accuracy": 0.8206,
+          "risk": 0.1794
+        },
+        {
+          "threshold": 0.05,
+          "coverage": 1.0,
+          "accuracy": 0.8206,
+          "risk": 0.1794
+        },
+        {
+          "threshold": 0.1,
+          "coverage": 1.0,
+          "accuracy": 0.8206,
+          "risk": 0.1794
+        },
+        {
+          "threshold": 0.15,
+          "coverage": 1.0,
+          "accuracy": 0.8206,
+          "risk": 0.1794
+        },
+        {
+          "threshold": 0.2,
+          "coverage": 1.0,
+          "accuracy": 0.8206,
+          "risk": 0.1794
+        },
+        {
+          "threshold": 0.25,
+          "coverage": 1.0,
+          "accuracy": 0.8206,
+          "risk": 0.1794
+        },
+        {
+          "threshold": 0.3,
+          "coverage": 1.0,
+          "accuracy": 0.8206,
+          "risk": 0.1794
+        },
+        {
+          "threshold": 0.35,
+          "coverage": 0.9974,
+          "accuracy": 0.8228,
+          "risk": 0.1772
+        },
+        {
+          "threshold": 0.4,
+          "coverage": 0.9894,
+          "accuracy": 0.824,
+          "risk": 0.176
+        },
+        {
+          "threshold": 0.45,
+          "coverage": 0.9631,
+          "accuracy": 0.8356,
+          "risk": 0.1644
+        },
+        {
+          "threshold": 0.5,
+          "coverage": 0.934,
+          "accuracy": 0.8475,
+          "risk": 0.1525
+        },
+        {
+          "threshold": 0.55,
+          "coverage": 0.8786,
+          "accuracy": 0.8649,
+          "risk": 0.1351
+        },
+        {
+          "threshold": 0.6,
+          "coverage": 0.8232,
+          "accuracy": 0.8718,
+          "risk": 0.1282
+        },
+        {
+          "threshold": 0.65,
+          "coverage": 0.7678,
+          "accuracy": 0.8935,
+          "risk": 0.1065
+        },
+        {
+          "threshold": 0.7,
+          "coverage": 0.7203,
+          "accuracy": 0.9048,
+          "risk": 0.0952
+        },
+        {
+          "threshold": 0.75,
+          "coverage": 0.6834,
+          "accuracy": 0.9073,
+          "risk": 0.0927
+        },
+        {
+          "threshold": 0.8,
+          "coverage": 0.6332,
+          "accuracy": 0.925,
+          "risk": 0.075
+        },
+        {
+          "threshold": 0.85,
+          "coverage": 0.5515,
+          "accuracy": 0.933,
+          "risk": 0.067
+        },
+        {
+          "threshold": 0.9,
+          "coverage": 0.4512,
+          "accuracy": 0.9474,
+          "risk": 0.0526
+        },
+        {
+          "threshold": 0.95,
+          "coverage": 0.3351,
+          "accuracy": 0.9764,
+          "risk": 0.0236
+        }
+      ],
+      "chosen_threshold": 0.7,
+      "chosen_coverage": 0.7203,
+      "chosen_accuracy": 0.9048
+    },
+    "abstention_on_test": {
+      "threshold": 0.7,
+      "coverage": 0.7026,
+      "accuracy_on_answered": 0.9139,
+      "flagged_for_review": 113
+    },
+    "latency_ms": 5.346,
+    "complexity": {
+      "params_total": 2265670,
+      "params_trainable": 7686,
+      "size_mb": 9.72
+    }
+  },
+  "robustness": {
+    "dataset": "RealWaste (Hugging Face mirror of UCI dataset 908)",
+    "images": 240,
+    "accuracy": 0.4458,
+    "macro_f1": 0.4343,
+    "mean_confidence": 0.2776,
+    "per_class_accuracy": {
+      "cardboard": 0.425,
+      "glass": 0.425,
+      "metal": 0.75,
+      "paper": 0.575,
+      "plastic": 0.4,
+      "trash": 0.1
+    }
+  },
+  "bin_mapping": {
+    "cardboard": {
+      "bin": "Dry / Recyclable bin",
+      "advice": "Flatten the carton before recycling."
+    },
+    "glass": {
+      "bin": "Glass / Recyclable bin",
+      "advice": "Rinse the glass; keep it separate from ceramics."
+    },
+    "metal": {
+      "bin": "Metal / Recyclable bin",
+      "advice": "Empty and rinse the can before recycling."
+    },
+    "paper": {
+      "bin": "Paper / Recyclable bin",
+      "advice": "Keep paper dry and clean for recycling."
+    },
+    "plastic": {
+      "bin": "Plastic / Dry recyclable bin",
+      "advice": "Empty the bottle and replace the cap."
+    },
+    "trash": {
+      "bin": "General waste / Residual bin",
+      "advice": "Not a recyclable stream; send to residual waste."
+    }
+  },
+  "gradcam_examples": 4,
+  "settings": {
+    "img_size": 160,
+    "batch_size": 32,
+    "epochs_cnn": 12,
+    "epochs_mt": 12,
+    "epochs_finetune": 6
+  }
+}

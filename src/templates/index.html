@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Bin Recommendation System</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; background:#f4f7f5; margin:0; color:#18332a; }
+    header { background:#176b45; color:white; padding:18px 28px; }
+    header h1 { margin:0; font-size:22px; }
+    header p { margin:4px 0 0; opacity:.9; font-size:14px; }
+    main { max-width:1000px; margin:24px auto; padding:0 18px; }
+    .card { background:white; border-radius:12px; padding:22px; box-shadow:0 2px 10px rgba(0,0,0,.08); }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .images { display:flex; gap:12px; flex-wrap:wrap; }
+    .images img { width:220px; height:220px; object-fit:contain; border:1px solid #d8e2dd; border-radius:8px; background:#fafcfb; }
+    button { background:#176b45; color:white; border:0; border-radius:6px; padding:10px 18px; font-size:15px; cursor:pointer; }
+    button:hover { background:#105235; }
+    .result { border-left:5px solid #176b45; padding-left:16px; }
+    .result.uncertain { border-left-color:#d98324; }
+    .badge { display:inline-block; background:#e3f2e9; color:#176b45; padding:4px 10px; border-radius:20px; font-weight:600; }
+    .badge.warn { background:#fff0df; color:#a85d10; }
+    table { border-collapse:collapse; margin-top:12px; width:100%; }
+    th,td { text-align:left; padding:6px 10px; border-bottom:1px solid #e4ebe7; font-size:14px; }
+    .samples img { width:90px; height:90px; object-fit:cover; border-radius:6px; cursor:pointer; }
+    .error { color:#a61d24; font-weight:600; }
+    small { color:#5d6f67; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Image-Based Waste Classification and Smart Bin Recommendation</h1>
+  <p>Upload a photo of a waste item. The model predicts its material, checks how certain it is, and suggests the correct bin.</p>
+</header>
+<main>
+  <div class="card">
+    <form action="/predict" method="post" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required>
+      <button type="submit">Classify &amp; recommend bin</button>
+    </form>
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    {% if samples %}
+      <p><small>Try a sample:</small></p>
+      <div class="samples">
+        {% for s in samples %}<img src="{{ url_for('static', filename=s) }}" alt="{{ s }}">{% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if category %}
+  <div class="card grid" style="margin-top:18px">
+    <div>
+      <h3>Uploaded image &amp; model evidence</h3>
+      <div class="images">
+        <img src="{{ url_for('static', filename=uploaded_image) }}" alt="uploaded image">
+        <img src="{{ url_for('static', filename=gradcam_image) }}" alt="Grad-CAM heatmap">
+      </div>
+      <p><small>Right: Grad-CAM shows the region that influenced the prediction.</small></p>
+    </div>
+    <div class="result {% if uncertain %}uncertain{% endif %}">
+      <h3>Recommendation</h3>
+      <p>Predicted category: <span class="badge">{{ category }}</span></p>
+      <p>Confidence: <strong>{{ confidence }}%</strong> (abstention threshold {{ threshold }}%)</p>
+      {% if uncertain %}
+        <p class="badge warn">Uncertain — please verify manually</p>
+        <p>The item looks unfamiliar or damaged. Ask the bin attendant or check local rules before disposal.</p>
+      {% else %}
+        <p>Recommended bin: <strong>{{ bin_name }}</strong></p>
+        <p>{{ advice }}</p>
+      {% endif %}
+      <table>
+        <tr><th>Category</th><th>Probability</th></tr>
+        {% for name, pct in top3 %}<tr><td>{{ name }}</td><td>{{ pct }}%</td></tr>{% endfor %}
+      </table>
+    </div>
+  </div>
+  {% endif %}
+</main>
+</body>
+</html>

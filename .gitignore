@@ -1,0 +1,15 @@
+# Data and trained weights are downloaded/generated, not committed
+data/raw/
+data/processed/
+data/robustness/
+src/static/uploaded.png
+src/static/gradcam.png
+experiments/models/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+*.keras
+*.h5
+venv/
+.venv/
