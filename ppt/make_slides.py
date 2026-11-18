@@ -237,9 +237,10 @@ def build():
 def write_markdown(data: dict):
     test = data.get("test", {})
     scaled = test.get("temperature_scaled", {})
+    abst = test.get("abstention_on_test", {})
     lines = [
         "# 7-slide viva presentation (speaker notes included)", "",
-        "## Slide 1 — Title", data.get("selected_model", {}), "",
+        "## Slide 1 — Title", data.get("selected_model", {}).get("name", "—"), "",
         "## Slide 2 — Problem & real-life scenario",
         "- Contamination, user uncertainty, hostel/canteen example, need to abstain.", "",
         "## Slide 3 — Abstract & pipeline",
@@ -249,8 +250,11 @@ def write_markdown(data: dict):
         "## Slide 5 — New innovation",
         "- Uncertainty + abstention, Grad-CAM evidence, measured efficiency.", "",
         "## Slide 6 — Results",
-        f"- Test accuracy: {scaled.get('accuracy')}; ECE: {test.get('ece_before')} → {test.get('ece_after')}.",
-        f"- Abstention: {test.get('abstention_on_test')}.", "",
+        f"- Test accuracy: {fmt(scaled.get('accuracy'))}; macro F1: {fmt(scaled.get('f1_macro'))}; "
+        f"ECE: {fmt(test.get('ece_before'))} → {fmt(test.get('ece_after'))}.",
+        f"- Abstention at τ={fmt(abst.get('threshold'), 2)}: coverage {fmt(abst.get('coverage'))}, "
+        f"accuracy on answered {fmt(abst.get('accuracy_on_answered'))}, "
+        f"flagged {abst.get('flagged_for_review', '—')}.", "",
         "## Slide 7 — Demo & impact",
         "- Live Flask demo, real-life scenario, limitations, future work.", "",
         "See `slides.pptx` for the formatted deck and `viva/cheat_sheet.md` for the defence script.",

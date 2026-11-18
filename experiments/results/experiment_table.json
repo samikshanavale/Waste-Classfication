@@ -3,11 +3,11 @@
     {
       "id": "E1",
       "name": "Custom CNN (baseline)",
-      "val_accuracy": 0.3641,
-      "val_f1_macro": 0.2391,
+      "val_accuracy": 0.2216,
+      "val_f1_macro": 0.0743,
       "params": 391398,
       "size_mb": 4.78,
-      "latency_ms": 4.423,
+      "latency_ms": 9.908,
       "model_path": "experiments\\models\\E1.keras"
     },
     {
@@ -17,37 +17,37 @@
       "val_f1_macro": 0.0634,
       "params": 391398,
       "size_mb": 4.79,
-      "latency_ms": 4.474,
+      "latency_ms": 10.226,
       "model_path": "experiments\\models\\E2.keras"
     },
     {
       "id": "E3",
       "name": "MobileNetV2 transfer (frozen)",
-      "val_accuracy": 0.8206,
-      "val_f1_macro": 0.7709,
+      "val_accuracy": 0.8338,
+      "val_f1_macro": 0.7851,
       "params": 2265670,
       "size_mb": 9.72,
-      "latency_ms": 5.23,
+      "latency_ms": 8.923,
       "model_path": "experiments\\models\\E3.keras"
     },
     {
       "id": "E4",
       "name": "MobileNetV2 transfer + augmentation",
-      "val_accuracy": 0.6174,
-      "val_f1_macro": 0.5581,
+      "val_accuracy": 0.6095,
+      "val_f1_macro": 0.5611,
       "params": 2265670,
       "size_mb": 9.74,
-      "latency_ms": 5.272,
+      "latency_ms": 13.419,
       "model_path": "experiments\\models\\E4.keras"
     },
     {
       "id": "E5",
       "name": "MobileNetV2 fine-tuned (last block)",
-      "val_accuracy": 0.6359,
-      "val_f1_macro": 0.5561,
+      "val_accuracy": 0.6517,
+      "val_f1_macro": 0.5703,
       "params": 2265670,
       "size_mb": 21.82,
-      "latency_ms": 5.572,
+      "latency_ms": 9.175,
       "model_path": "experiments\\models\\E5.keras"
     }
   ]

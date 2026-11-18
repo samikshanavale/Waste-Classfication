@@ -40,9 +40,18 @@ STATIC = Path(app.static_folder)
 SAMPLE_DIR = STATIC / "samples"
 
 
-def preprocess(file_storage) -> np.ndarray:
-    image = Image.open(file_storage.stream).convert("RGB").resize((img_size, img_size))
-    return np.asarray(image, dtype=np.float32)
+def preprocess(file_storage=None, sample_rel: str | None = None) -> np.ndarray | None:
+    """Load an uploaded file or a bundled sample into a raw [0, 255] array."""
+    if sample_rel:
+        candidate = (STATIC / sample_rel).resolve()
+        if STATIC.resolve() not in candidate.parents or not candidate.is_file():
+            return None
+        with Image.open(candidate) as image:
+            return np.asarray(image.convert("RGB").resize((img_size, img_size)), dtype=np.float32)
+    if file_storage is None:
+        return None
+    with Image.open(file_storage.stream) as image:
+        return np.asarray(image.convert("RGB").resize((img_size, img_size)), dtype=np.float32)
 
 
 @app.route("/", methods=["GET"])
@@ -53,10 +62,15 @@ def index():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    if "image" not in request.files or not request.files["image"].filename:
-        return render_template("index.html", error="Please choose an image first.", samples=[])
-
-    image = preprocess(request.files["image"])
+    sample_rel = request.form.get("sample", "").strip()
+    if sample_rel:
+        image = preprocess(sample_rel=sample_rel)
+        if image is None:
+            return render_template("index.html", error="That sample image could not be found.", samples=[])
+    else:
+        if "image" not in request.files or not request.files["image"].filename:
+            return render_template("index.html", error="Please choose an image first.", samples=[])
+        image = preprocess(file_storage=request.files["image"])
     Image.fromarray(image.astype(np.uint8)).save(STATIC / "uploaded.png")
     logits = logit_predictor.predict(np.expand_dims(image, 0), verbose=0)[0]
     z = logits / temperature

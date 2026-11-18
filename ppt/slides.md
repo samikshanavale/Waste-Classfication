@@ -1,7 +1,7 @@
 # 7-slide viva presentation (speaker notes included)
 
 ## Slide 1 — Title
-{'id': 'E3', 'name': 'MobileNetV2 transfer (frozen)', 'checkpoint_name': 'mobilenetv2_frozen', 'selection_criterion': 'validation accuracy'}
+MobileNetV2 transfer (frozen)
 
 ## Slide 2 — Problem & real-life scenario
 - Contamination, user uncertainty, hostel/canteen example, need to abstain.
@@ -16,8 +16,8 @@
 - Uncertainty + abstention, Grad-CAM evidence, measured efficiency.
 
 ## Slide 6 — Results
-- Test accuracy: 0.8263157894736842; ECE: 0.059 → 0.0419.
-- Abstention: {'threshold': 0.7, 'coverage': 0.7026, 'accuracy_on_answered': 0.9139, 'flagged_for_review': 113}.
+- Test accuracy: 0.826; macro F1: 0.806; ECE: 0.044 → 0.035.
+- Abstention at τ=0.75: coverage 0.655, accuracy on answered 0.944, flagged 131.
 
 ## Slide 7 — Demo & impact
 - Live Flask demo, real-life scenario, limitations, future work.

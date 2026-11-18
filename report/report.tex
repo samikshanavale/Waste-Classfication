@@ -132,7 +132,7 @@ landfill facility, covering nine categories with real illumination, contaminatio
 deformed packaging. For a fair comparison we use a fixed subset of 40 images per shared
 class: cardboard, glass, metal, paper, plastic, and ``Miscellaneous Trash'' mapped to our
 residual \texttt{trash} class. Organic, textile and vegetation categories are excluded
-because they have no counterpart in the proposed five-category formulation. The images are
+because they have no counterpart in the proposed six-category material set. The images are
 never used for training or threshold tuning.
 
 \subsection{Preprocessing and augmentation}
@@ -188,9 +188,11 @@ expected calibration error (ECE):
 where predictions are grouped into $B=15$ confidence bins.
 
 For abstention, a confidence threshold $\tau$ is selected on validation data as the
-largest coverage whose accuracy on answered images remains at least 0.90. At inference, an
-image with $\max p_i < \tau$ is not assigned a bin; instead the interface asks the user to
-verify the item manually. The trade-off is visualised with a risk--coverage curve.
+largest coverage whose accuracy on answered images remains at least 0.90; the target is
+relaxed to 0.85, 0.80 and 0.75 only if no threshold qualifies, so weaker models also yield
+a usable rule. At inference, an image with $\max p_i < \tau$ is not assigned a bin; instead
+the interface asks the user to verify the item manually. The trade-off is visualised with a
+risk--coverage curve.
 
 \subsection{Explainability}
 Grad-CAM computes the gradient of the predicted class score with respect to the last
@@ -213,10 +215,15 @@ and checkpoint size. Robustness is measured as accuracy on the shifted RealWaste
 
 All experiments share the same split, image size, batch size (32), seed (42) and early
 stopping rule. E1/E2 test the value of augmentation for the baseline; E3/E4 repeat the
-comparison for transfer learning; E5 fine-tunes E4; E6 is the final calibrated and
-abstaining configuration. Because selection uses only validation accuracy, the test set
-remains an unbiased final estimate. Training was carried out with TensorFlow/Keras; the
-Colab notebook in the repository runs the same script with a T4 GPU and more epochs.
+comparison for transfer learning; E5 fine-tunes the E4 checkpoint with a smaller learning
+rate. The final deployable configuration is the validation-selected E3 with temperature
+scaling and abstention applied on top; it is not a separate training run. Because selection
+uses only validation accuracy, the test set remains an unbiased final estimate. Training
+was carried out with TensorFlow/Keras; the Colab notebook in the repository runs the same
+script with a T4 GPU and more epochs. The ablation is honest: augmentation does not improve
+the transfer model (E4 below E3) and fine-tuning reduces validation accuracy further (E5
+below E3), while the CNN pair trades a small accuracy gain for a lower macro F1. E3 is
+therefore retained on the stated selection criterion.
 
 % ---------------------------------------------------------------------------
 \section{Results and Analysis}

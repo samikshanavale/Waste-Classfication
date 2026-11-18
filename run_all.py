@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -229,6 +230,10 @@ def main():
         candidates = sorted((ROOT / "data" / "processed" / "test" / class_name).glob("*"))
         if candidates:
             shutil.copy2(candidates[0], sample_dir / f"{class_name}.jpg")
+
+    # Keep the report and slides in lockstep with the regenerated summary.
+    for script in ("report/make_tables.py", "ppt/make_slides.py"):
+        subprocess.run([sys.executable, str(ROOT / script)], cwd=ROOT, check=True)
 
     print("\n=== Final results (untouched test set) ===")
     print(json.dumps(summary["test"], indent=2))

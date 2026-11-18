@@ -59,17 +59,18 @@ choose it. Read the resulting threshold, coverage and answered-accuracy from
 
 **8. What is Grad-CAM used for here?**
 It highlights the image region that influenced the prediction. We use it to inspect the
-dominant error pairs measured in the confusion matrix (plastic→glass, glass→metal,
-metal→glass in our run) and show it in the app as evidence for the user. It is an inspection
-aid, not proof of causal reasoning.
+dominant error pairs listed under `test.top_confusions` in `summary.json` (read the current
+pairs before the viva instead of memorising them) and show it in the app as evidence for the
+user. It is an inspection aid, not proof of causal reasoning.
 
 **9. What failed / what was hard?**
-The from-scratch CNN overfits the small dataset. Counter-intuitively, augmentation *hurt*
-both families here (E2 vs E1, E4 vs E3) because TrashNet images are clean studio photos;
-fine-tuning the last MobileNet block also degraded validation accuracy (E5 vs E3), so the
-frozen pretrained model was selected. A first short run was under-trained, so we increased
-epochs. Saving/reloading a Lambda preprocessing layer failed, so we replaced it with a
-Rescaling layer. Accuracy drops on RealWaste photos; we report that drop honestly.
+The from-scratch CNN overfits the small dataset. Augmentation gave a marginal accuracy gain
+for the CNN but lowered its macro F1 (E2 vs E1), and it clearly hurt the transfer-learning
+model (E4 vs E3); fine-tuning the last MobileNet block also degraded validation accuracy
+(E5 vs E3), so the frozen pretrained model was selected. A first short run was
+under-trained, so we increased epochs. Saving/reloading a Lambda preprocessing layer
+failed, so we replaced it with a Rescaling layer. Accuracy drops on RealWaste photos; we
+report that drop honestly.
 
 **10. What are the limitations?**
 Single-object, closed-set classification; clean-background training data; small residual

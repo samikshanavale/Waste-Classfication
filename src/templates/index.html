@@ -22,7 +22,11 @@
     .badge.warn { background:#fff0df; color:#a85d10; }
     table { border-collapse:collapse; margin-top:12px; width:100%; }
     th,td { text-align:left; padding:6px 10px; border-bottom:1px solid #e4ebe7; font-size:14px; }
-    .samples img { width:90px; height:90px; object-fit:cover; border-radius:6px; cursor:pointer; }
+    .samples { display:flex; gap:12px; flex-wrap:wrap; }
+    .sample-form { margin:0; }
+    .sample-button { background:none; padding:0; border:0; border-radius:6px; cursor:pointer; }
+    .sample-button img { width:90px; height:90px; object-fit:cover; border-radius:6px; display:block; }
+    .sample-button:hover img { outline:3px solid #176b45; }
     .error { color:#a61d24; font-weight:600; }
     small { color:#5d6f67; }
   </style>
@@ -42,7 +46,14 @@
     {% if samples %}
       <p><small>Try a sample:</small></p>
       <div class="samples">
-        {% for s in samples %}<img src="{{ url_for('static', filename=s) }}" alt="{{ s }}">{% endfor %}
+        {% for s in samples %}
+        <form action="/predict" method="post" class="sample-form">
+          <input type="hidden" name="sample" value="{{ s }}">
+          <button type="submit" class="sample-button" title="Classify {{ s }}">
+            <img src="{{ url_for('static', filename=s) }}" alt="{{ s }}">
+          </button>
+        </form>
+        {% endfor %}
       </div>
     {% endif %}
   </div>

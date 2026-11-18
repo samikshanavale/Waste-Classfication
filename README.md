@@ -90,7 +90,9 @@ reloads the saved best checkpoints instead of retraining. The Colab notebook use
 | E3 | MobileNetV2, frozen ImageNet features | Does transfer learning beat the baseline? |
 | E4 | MobileNetV2 + augmentation | Controlled augmentation ablation for the advanced model |
 | E5 | E4 with last block fine-tuned (lr 1e-4) | Does careful fine-tuning add value? |
-| E6 | Selected model + temperature scaling + abstention | Final deployable configuration |
+
+The final deployable configuration is the validation-selected E3 checkpoint with
+temperature scaling and abstention applied; it is not a sixth training experiment.
 
 Selection uses **validation accuracy only**. The held-out test set is evaluated once at
 the end. Reported metrics: accuracy, macro/weighted precision, recall, F1, confusion matrix,
