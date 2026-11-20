@@ -16,8 +16,8 @@ MobileNetV2 transfer (frozen)
 - Uncertainty + abstention, Grad-CAM evidence, measured efficiency.
 
 ## Slide 6 — Results
-- Test accuracy: 0.826; macro F1: 0.806; ECE: 0.044 → 0.035.
-- Abstention at τ=0.75: coverage 0.655, accuracy on answered 0.944, flagged 131.
+- Test accuracy: 0.824; macro F1: 0.799; ECE: 0.042 → 0.042.
+- Abstention at τ=0.70: coverage 0.737, accuracy on answered 0.904, flagged 100.
 
 ## Slide 7 — Demo & impact
 - Live Flask demo, real-life scenario, limitations, future work.

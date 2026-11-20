@@ -17,11 +17,11 @@
     {
       "id": "E1",
       "name": "Custom CNN (baseline)",
-      "val_accuracy": 0.2216,
-      "val_f1_macro": 0.0743,
+      "val_accuracy": 0.1979,
+      "val_f1_macro": 0.0647,
       "params": 391398,
       "size_mb": 4.78,
-      "latency_ms": 9.908,
+      "latency_ms": 13.671,
       "model_path": "experiments\\models\\E1.keras"
     },
     {
@@ -31,37 +31,37 @@
       "val_f1_macro": 0.0634,
       "params": 391398,
       "size_mb": 4.79,
-      "latency_ms": 10.226,
+      "latency_ms": 12.933,
       "model_path": "experiments\\models\\E2.keras"
     },
     {
       "id": "E3",
       "name": "MobileNetV2 transfer (frozen)",
       "val_accuracy": 0.8338,
-      "val_f1_macro": 0.7851,
+      "val_f1_macro": 0.7902,
       "params": 2265670,
       "size_mb": 9.72,
-      "latency_ms": 8.923,
+      "latency_ms": 16.75,
       "model_path": "experiments\\models\\E3.keras"
     },
     {
       "id": "E4",
       "name": "MobileNetV2 transfer + augmentation",
-      "val_accuracy": 0.6095,
-      "val_f1_macro": 0.5611,
+      "val_accuracy": 0.6148,
+      "val_f1_macro": 0.5434,
       "params": 2265670,
       "size_mb": 9.74,
-      "latency_ms": 13.419,
+      "latency_ms": 16.464,
       "model_path": "experiments\\models\\E4.keras"
     },
     {
       "id": "E5",
       "name": "MobileNetV2 fine-tuned (last block)",
-      "val_accuracy": 0.6517,
-      "val_f1_macro": 0.5703,
+      "val_accuracy": 0.6227,
+      "val_f1_macro": 0.5773,
       "params": 2265670,
       "size_mb": 21.82,
-      "latency_ms": 9.175,
+      "latency_ms": 17.17,
       "model_path": "experiments\\models\\E5.keras"
     }
   ],
@@ -74,30 +74,30 @@
   "temperature": 0.9,
   "test": {
     "raw_softmax": {
-      "accuracy": 0.8263157894736842,
-      "precision_macro": 0.8337289903079377,
-      "recall_macro": 0.7931561806260211,
-      "f1_macro": 0.8058412810804243,
-      "precision_weighted": 0.8319924419993672,
-      "recall_weighted": 0.8263157894736842,
-      "f1_weighted": 0.8249727972559963
+      "accuracy": 0.8236842105263158,
+      "precision_macro": 0.8207445213383598,
+      "recall_macro": 0.7880268488086893,
+      "f1_macro": 0.7994604320125016,
+      "precision_weighted": 0.8256795574051002,
+      "recall_weighted": 0.8236842105263158,
+      "f1_weighted": 0.8218377520305221
     },
     "temperature_scaled": {
-      "accuracy": 0.8263157894736842,
-      "precision_macro": 0.8337289903079377,
-      "recall_macro": 0.7931561806260211,
-      "f1_macro": 0.8058412810804243,
-      "precision_weighted": 0.8319924419993672,
-      "recall_weighted": 0.8263157894736842,
-      "f1_weighted": 0.8249727972559963
+      "accuracy": 0.8236842105263158,
+      "precision_macro": 0.8207445213383598,
+      "recall_macro": 0.7880268488086893,
+      "f1_macro": 0.7994604320125016,
+      "precision_weighted": 0.8256795574051002,
+      "recall_weighted": 0.8236842105263158,
+      "f1_weighted": 0.8218377520305221
     },
-    "ece_before": 0.0444,
-    "ece_after": 0.035,
+    "ece_before": 0.0415,
+    "ece_after": 0.042,
     "per_class": {
       "cardboard": {
-        "precision": 0.9455,
+        "precision": 0.9123,
         "recall": 0.8667,
-        "f1-score": 0.9043,
+        "f1-score": 0.8889,
         "support": 60.0
       },
       "glass": {
@@ -107,27 +107,27 @@
         "support": 76.0
       },
       "metal": {
-        "precision": 0.7333,
-        "recall": 0.8871,
-        "f1-score": 0.8029,
+        "precision": 0.7692,
+        "recall": 0.8065,
+        "f1-score": 0.7874,
         "support": 62.0
       },
       "paper": {
-        "precision": 0.8526,
-        "recall": 0.9101,
-        "f1-score": 0.8804,
+        "precision": 0.8557,
+        "recall": 0.9326,
+        "f1-score": 0.8925,
         "support": 89.0
       },
       "plastic": {
-        "precision": 0.7763,
-        "recall": 0.8082,
-        "f1-score": 0.7919,
+        "precision": 0.7531,
+        "recall": 0.8356,
+        "f1-score": 0.7922,
         "support": 73.0
       },
       "trash": {
-        "precision": 0.8462,
+        "precision": 0.7857,
         "recall": 0.55,
-        "f1-score": 0.6667,
+        "f1-score": 0.6471,
         "support": 20.0
       }
     },
@@ -135,12 +135,12 @@
       [
         "glass",
         "plastic",
-        10
+        11
       ],
       [
         "glass",
         "metal",
-        9
+        8
       ],
       [
         "cardboard",
@@ -182,106 +182,106 @@
         },
         {
           "threshold": 0.25,
-          "coverage": 1.0,
-          "accuracy": 0.8338,
-          "risk": 0.1662
+          "coverage": 0.9974,
+          "accuracy": 0.8333,
+          "risk": 0.1667
         },
         {
           "threshold": 0.3,
           "coverage": 0.9974,
-          "accuracy": 0.836,
-          "risk": 0.164
+          "accuracy": 0.8333,
+          "risk": 0.1667
         },
         {
           "threshold": 0.35,
-          "coverage": 0.9947,
-          "accuracy": 0.8382,
-          "risk": 0.1618
+          "coverage": 0.9921,
+          "accuracy": 0.8351,
+          "risk": 0.1649
         },
         {
           "threshold": 0.4,
-          "coverage": 0.9842,
-          "accuracy": 0.8365,
-          "risk": 0.1635
+          "coverage": 0.9789,
+          "accuracy": 0.8383,
+          "risk": 0.1617
         },
         {
           "threshold": 0.45,
-          "coverage": 0.9604,
-          "accuracy": 0.8434,
-          "risk": 0.1566
+          "coverage": 0.9551,
+          "accuracy": 0.8398,
+          "risk": 0.1602
         },
         {
           "threshold": 0.5,
-          "coverage": 0.9235,
-          "accuracy": 0.8571,
-          "risk": 0.1429
+          "coverage": 0.9261,
+          "accuracy": 0.8462,
+          "risk": 0.1538
         },
         {
           "threshold": 0.55,
-          "coverage": 0.8892,
-          "accuracy": 0.8724,
-          "risk": 0.1276
+          "coverage": 0.8839,
+          "accuracy": 0.8597,
+          "risk": 0.1403
         },
         {
           "threshold": 0.6,
-          "coverage": 0.8602,
-          "accuracy": 0.8865,
-          "risk": 0.1135
+          "coverage": 0.8311,
+          "accuracy": 0.8794,
+          "risk": 0.1206
         },
         {
           "threshold": 0.65,
-          "coverage": 0.8364,
-          "accuracy": 0.8927,
-          "risk": 0.1073
+          "coverage": 0.7889,
+          "accuracy": 0.893,
+          "risk": 0.107
         },
         {
           "threshold": 0.7,
-          "coverage": 0.781,
-          "accuracy": 0.8953,
-          "risk": 0.1047
+          "coverage": 0.7599,
+          "accuracy": 0.9097,
+          "risk": 0.0903
         },
         {
           "threshold": 0.75,
-          "coverage": 0.723,
-          "accuracy": 0.9088,
-          "risk": 0.0912
+          "coverage": 0.7124,
+          "accuracy": 0.9148,
+          "risk": 0.0852
         },
         {
           "threshold": 0.8,
-          "coverage": 0.6755,
-          "accuracy": 0.918,
-          "risk": 0.082
+          "coverage": 0.6675,
+          "accuracy": 0.9249,
+          "risk": 0.0751
         },
         {
           "threshold": 0.85,
-          "coverage": 0.5858,
-          "accuracy": 0.9369,
-          "risk": 0.0631
+          "coverage": 0.591,
+          "accuracy": 0.942,
+          "risk": 0.058
         },
         {
           "threshold": 0.9,
-          "coverage": 0.5066,
-          "accuracy": 0.9531,
-          "risk": 0.0469
+          "coverage": 0.504,
+          "accuracy": 0.9529,
+          "risk": 0.0471
         },
         {
           "threshold": 0.95,
-          "coverage": 0.3456,
-          "accuracy": 0.9771,
-          "risk": 0.0229
+          "coverage": 0.3166,
+          "accuracy": 0.9833,
+          "risk": 0.0167
         }
       ],
-      "chosen_threshold": 0.75,
-      "chosen_coverage": 0.723,
-      "chosen_accuracy": 0.9088
+      "chosen_threshold": 0.7,
+      "chosen_coverage": 0.7599,
+      "chosen_accuracy": 0.9097
     },
     "abstention_on_test": {
-      "threshold": 0.75,
-      "coverage": 0.6553,
-      "accuracy_on_answered": 0.9438,
-      "flagged_for_review": 131
+      "threshold": 0.7,
+      "coverage": 0.7368,
+      "accuracy_on_answered": 0.9036,
+      "flagged_for_review": 100
     },
-    "latency_ms": 13.385,
+    "latency_ms": 16.847,
     "complexity": {
       "params_total": 2265670,
       "params_trainable": 7686,
@@ -291,16 +291,16 @@
   "robustness": {
     "dataset": "RealWaste (Hugging Face mirror of UCI dataset 908)",
     "images": 240,
-    "accuracy": 0.4292,
-    "macro_f1": 0.4315,
-    "mean_confidence": 0.2665,
+    "accuracy": 0.3542,
+    "macro_f1": 0.3668,
+    "mean_confidence": 0.2622,
     "per_class_accuracy": {
-      "cardboard": 0.325,
-      "glass": 0.425,
-      "metal": 0.725,
-      "paper": 0.625,
-      "plastic": 0.275,
-      "trash": 0.2
+      "cardboard": 0.275,
+      "glass": 0.325,
+      "metal": 0.475,
+      "paper": 0.575,
+      "plastic": 0.375,
+      "trash": 0.1
     }
   },
   "bin_mapping": {
